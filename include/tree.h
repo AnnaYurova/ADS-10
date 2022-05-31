@@ -11,50 +11,50 @@ class Tree {
     char number;
     std::vector<Node*> sheet;
   };
-  Node* root;
+  Node* root1;
   std::vector<std::string> substitution;
-  void constructTree(Node* root, std::vector<char> newFig) {
+  void constructTree(Node* root1, std::vector<char> newFig) {
     if (!newFig.size()) {
       return;
     }
-    if (root->number != '*') {
+    if (root1->number != '*') {
       for (auto x = newFig.begin(); x != newFig.end(); ++x) {
-        if (*x == root->number) {
+        if (*x == root1->number) {
           newFig.erase(x);
           break;
         }
       }
     }
     for (size_t i = 0; i < newFig.size(); ++i) {
-      root->sheet.push_back(new Node);
+      root1->sheet.push_back(new Node);
     }
-    for (size_t i = 0; i < root->sheet.size(); ++i) {
-      root->sheet[i]->number = newFig[i];
+    for (size_t i = 0; i < root1->sheet.size(); ++i) {
+      root1->sheet[i]->number = newFig[i];
     }
-    for (size_t i = 0; i < root->sheet.size(); ++i) {
-      constructTree(root->sheet[i], newFig);
+    for (size_t i = 0; i < root1->sheet.size(); ++i) {
+      constructTree(root1->sheet[i], newFig);
     }
   }
-  void Permutation(Node*root, std::string s = "") {
-    if (!root->sheet.size()) {
-      s += root->number;
+  void substitution(Node*root1, std::string s = "") {
+    if (!root1->sheet.size()) {
+      s += root1->number;
       substitution.push_back(s);
       return;
     }
-    if (root->number != '*') {
-      s += root->number;
+    if (root1->number != '*') {
+      s += root1->number;
     }
-    for (size_t i = 0; i < root->sheet.size(); ++i) {
-      substitution(root->sheet[i], s);
+    for (size_t i = 0; i < root1->sheet.size(); ++i) {
+      substitution(root1->sheet[i], s);
     }
   }
 
  public:
   explicit Tree(std::vector<char> v) {
-    root = new Node;
-    root->number = '*';
-    constructTree(root, v);
-    substitution(root);
+    root1 = new Node;
+    root1->number = '*';
+    constructTree(root1, v);
+    substitution(root1);
   }
   std::string operator[](int i) const {
     if (i >= substitution.size()) {
