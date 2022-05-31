@@ -12,12 +12,12 @@ class Tree {
     std::vector<Node*> sheet;
   };
   Node* root;
-  std::vector<std::string> permutation;
+  std::vector<std::string> substitution;
   void constructTree(Node* root, std::vector<char> newFig) {
     if (!newFig.size()) {
       return;
     }
-    if (root->value != '*') {
+    if (root->number != '*') {
       for (auto x = newFig.begin(); x != newFig.end(); ++x) {
         if (*x == root->number) {
           newFig.erase(x);
@@ -29,7 +29,7 @@ class Tree {
       root->sheet.push_back(new Node);
     }
     for (size_t i = 0; i < root->sheet.size(); ++i) {
-      root->sheet[i]->number = figure[i];
+      root->sheet[i]->number = newFig[i];
     }
     for (size_t i = 0; i < root->sheet.size(); ++i) {
       constructTree(root->sheet[i], newFig);
