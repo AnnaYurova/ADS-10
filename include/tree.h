@@ -43,7 +43,7 @@ class Tree {
     for (size_t i = 0; i < path.size(); i++) {
       root1->sheet.push_back(new Node);
     }
-    for (size_t i = 0; i < root1->leaf.size(); ++i) {
+    for (size_t i = 0; i < root1->sheet.size(); ++i) {
       root1->sheet[i]->number = path[i];
     }
     for (size_t i = 0; i < root1->sheet.size(); ++i) {
