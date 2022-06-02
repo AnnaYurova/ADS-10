@@ -26,9 +26,8 @@ class Tree {
     }
     for (size_t i = 0; i < root1->sheet.size(); i++) {
       permutation(root1->sheet[i], sum);
-    }  
+    }
   }
- 
   void newTree(Node* root1, std::vector<char> path) {
     if (!path.size()) {
       return;
@@ -44,7 +43,7 @@ class Tree {
     for (size_t i = 0; i < path.size(); i++) {
       root1->sheet.push_back(new Node);
     }
-    for (size_t i = 0; i < root->leaf.size(); ++i) {
+    for (size_t i = 0; i < root1->leaf.size(); ++i) {
       root1->sheet[i]->number = path[i];
     }
     for (size_t i = 0; i < root1->sheet.size(); ++i) {
@@ -63,7 +62,7 @@ class Tree {
     root1 = new Node();
     root1->number = '*';
     newTree(root1, number);
-    permutation(root);
+    permutation(root1);
   }
 };
 
