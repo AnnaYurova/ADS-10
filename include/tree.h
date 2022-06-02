@@ -13,54 +13,57 @@ class Tree {
   };
   Node* root1;
   std::vector<std::string> substitution;
-  void constructTree(Node* root1, std::vector<char> newFig) {
-    if (!newFig.size()) {
+  void permutation(Node* root1, std::string sum = "") {
+    if (!root1 ->sheet.size()) {
+     sum += root1 -> number;
+    }
+    if (root1->number != '*') {
+      sum =+ root1->number;
+      substitution.push_back(sum);
+    }
+    if (root1->number != '*') {
+      sum += root1->number;
+    }
+    for (size_t i = 0; i < root1->sheet.size(); i++) {
+      permutation(root1->sheet[i], sum);
+    }  
+  }
+ 
+  void newTree(Node* root1, std::vector<char> path) {
+    if (!path.size()) {
       return;
     }
     if (root1->number != '*') {
-      for (auto x = newFig.begin(); x != newFig.end(); ++x) {
-        if (*x == root1->number) {
-          newFig.erase(x);
+      for (auto i = path.begin(); i != path.end(); i++) {
+        if (*i == root1->number) {
+          path.erase(i);
           break;
         }
       }
     }
-    for (size_t i = 0; i < newFig.size(); ++i) {
+    for (size_t i = 0; i < path.size(); i++) {
       root1->sheet.push_back(new Node);
     }
-    for (size_t i = 0; i < root1->sheet.size(); ++i) {
-      root1->sheet[i]->number = newFig[i];
+    for (size_t i = 0; i < root->leaf.size(); ++i) {
+      root1->sheet[i]->number = path[i];
     }
     for (size_t i = 0; i < root1->sheet.size(); ++i) {
-      constructTree(root1->sheet[i], newFig);
-    }
-  }
-  void substitution(Node*root1, std::string s = "") {
-    if (!root1->sheet.size()) {
-      s += root1->number;
-      substitution.push_back(s);
-      return;
-    }
-    if (root1->number != '*') {
-      s += root1->number;
-    }
-    for (size_t i = 0; i < root1->sheet.size(); ++i) {
-      substitution(root1->sheet[i], s);
+      newTree(root1->sheet[i], path);
     }
   }
 
  public:
-  explicit Tree(std::vector<char> v) {
-    root1 = new Node;
-    root1->number = '*';
-    constructTree(root1, v);
-    substitution(root1);
-  }
   std::string operator[](int i) const {
     if (i >= substitution.size()) {
       return "";
     }
     return substitution[i];
+  }
+  explicit Tree(std::vector<char> number) {
+    root1 = new Node();
+    root1->number = '*';
+    newTree(root1, number);
+    permutation(root);
   }
 };
 
